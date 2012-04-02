@@ -1,0 +1,127 @@
+
+<html lang="en">
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>Radio</title>
+ <script language="JavaScript">
+     var jsReady = false;
+
+     // дергается из плеера
+     function pageInit() {
+         jsReady = true;
+     };
+
+     function thisMovie(movieName) {
+         if (navigator.appName.indexOf("Microsoft") != -1) {
+             return window[movieName];
+         } else {
+             return document[movieName];
+         }
+     };
+
+
+     /**
+      * Вызывается из плеера (проверка, загрузилась ли страница полностью)
+      */
+     function isReady() {
+         return jsReady;
+     };
+
+     /**
+      * Вызывется из плеера, принимает отладочные сообщения
+      */
+     function playerDebug( str ) {
+ 		console.log( str );
+     };
+
+     /**
+      * Вызываетс из плеера при ошибке
+      */
+     function playerError( str ) {
+        console.log( str );
+     };
+
+     /**
+      * Вызывается из плеера
+      * Если true - буферизуется
+      * Если false - буферизация окончена - начинает проигрываться трек
+      */
+     function playerBuffering( buff ) {
+        console.log( 'buffering : ', buff );
+     };
+
+     /**
+      * Включить/выключить debug режим
+      * @var enable bool
+      */
+     function debug( enable ) {
+        thisMovie( 'Radio' ).debug( enable );
+     };
+
+     /**
+      * Воспроизвести url
+      */
+     function play( url ) {
+        //thisMovie( 'Radio' ).debug( false );
+        // Устанавливаем какой url проигрывать, второй параметр - радио/true или файл/false
+        thisMovie( 'Radio' ).setUrl( url, true );
+        // Воспроизводим
+        thisMovie( 'Radio' ).play();
+     };
+
+     /**
+      * Пристанавливаем воспроизведение
+      */
+     function pause() {
+        thisMovie( 'Radio' ).pause();
+     };
+
+     /**
+      * Останавливаем воспроизведение
+      */
+     function stop() {
+     	thisMovie( 'Radio' ).stop();
+     };
+
+     /**
+      * Устанавливаем громкость 0-100
+      */
+     function volume( value ) {
+     	thisMovie( 'Radio' ).setVolume( value );
+     };
+ </script>
+ </head>
+ <body onload="pageInit();">
+ 
+
+<input type="text" value="http://radio.qip.ru:8000/radio-smile?from=QipBrowser" id="channel" style="width:600px;" /><br />
+
+<button onclick="play( document.getElementById( 'channel' ).value );return false;">Play</button>
+<!-- <button onclick="pause();return false;">Pause</button> -->
+<button onclick="stop();return false;">Stop</button><br />
+
+<button onclick="volume( 100 );return false;">100%</button>
+<button onclick="volume( 50 );return false;">50%</button>
+<button onclick="volume( 0 );return false;">0%</button><br />
+
+<button onclick="debug( true );return false;">Debug on</button>
+<button onclick="debug( false );return false;">Debug off</button>
+
+
+
+ <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+         id="Radio" width="1" height="1"
+         codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+     <param name="movie" value="zEPD.swf" />
+     <param name="quality" value="high" />
+     <param name="allowScriptAccess" value="sameDomain" />
+     <embed src="zEPD.swf" quality="high"
+         width="1" height="1" name="Radio" align="middle"
+         play="true" loop="false" quality="high" allowScriptAccess="sameDomain"
+         type="application/x-shockwave-flash"
+         pluginspage="http://www.macromedia.com/go/getflashplayer">
+     </embed>
+ </object>
+
+ </body>
+ </html>
