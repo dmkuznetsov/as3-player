@@ -58,7 +58,7 @@ package
                     ExternalInterface.addCallback( "getVolume", getVolume );
                     if ( !_checkExternalReady() )
                     {
-                        trace( "External is not ready, creating timer.\n" );
+                        //trace( "External is not ready, creating timer.\n" );
                         var readyTimer:Timer = new Timer( 100, 0 );
                         readyTimer.addEventListener( TimerEvent.TIMER, _timerCheckExternalReady );
                         readyTimer.start();
@@ -66,16 +66,16 @@ package
                 }
                 catch ( error:SecurityError )
                 {
-                    trace( "A SecurityError occurred: " + error.message + "\n" );
+                    //trace( "A SecurityError occurred: " + error.message + "\n" );
                 }
                 catch ( error:Error )
                 {
-                    trace( "An Error occurred: " + error.message + "\n" );
+                    //trace( "An Error occurred: " + error.message + "\n" );
                 }
             }
             else
             {
-                trace( "External interface is not available for this container." );
+                //trace( "External interface is not available for this container." );
             }
         }
 
@@ -267,6 +267,13 @@ package
             this._sound.load( urlRequest, loaderContext );
         }
 
+        /*protected function _listenerFlashVars():void
+        {
+            var url:String = this.loaderInfo.parameters[ "url" ];
+            var status:String = this.loaderInfo.parameters[ "status" ];
+        }*/
+       
+
         /**
          * Check play or buffering now
          */
@@ -330,9 +337,6 @@ package
             //this.toExternal( "Listener: ERROR - " + event.formatToString );
         }
     
-        
-// **********
-
         private function _checkExternalReady():Boolean
         {
             var isReady:Boolean = ExternalInterface.call( "isReady" );
